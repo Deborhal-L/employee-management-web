@@ -14,7 +14,7 @@ function App() {
   const [filter, setFilter] = useState("All");
   const [search, setSearch] = useState("");
 
-  // ✅ LIVE BACKEND URL
+  // ✅ BACKEND URL (LOCAL)
   const API = "https://employeemanagement-d879.onrender.com/employees";
 
   // ✅ FETCH EMPLOYEES
@@ -57,7 +57,10 @@ function App() {
     }
 
     try {
-      await axios.post(API, form);
+      await axios.post(API, {
+        ...form,
+        salary: Number(form.salary), // ✅ FIXED
+      });
 
       setForm({
         name: "",
@@ -94,7 +97,10 @@ function App() {
   // ✅ UPDATE EMPLOYEE
   const updateEmployee = async () => {
     try {
-      await axios.put(`${API}/${editId}`, form);
+      await axios.put(`${API}/${editId}`, {
+        ...form,
+        salary: Number(form.salary), // ✅ FIXED
+      });
 
       setEditId(null);
       setForm({
